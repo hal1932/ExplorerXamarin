@@ -6,7 +6,103 @@
         xmlns:local="clr-namespace:ExplorerXamarin.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Width" Value="16"/>
+                    <Setter Property="Height" Value="16"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Width" Value="22"/>
+                    <Setter Property="Height" Value="22"/>
+                    <Setter Property="Margin" Value="1"/>
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+            </Grid.Resources>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0" Margin="2">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Button Padding="1">
+                        <Button.Content>
+                            <Image Source="Resources/Backward_32x.png"/>
+                        </Button.Content>
+                    </Button>
+                    <Button>
+                        <Button.Content>
+                            <Image Source="Resources/Forward_32x.png"/>
+                        </Button.Content>
+                    </Button>
+                    <Button>
+                        <Button.Content>
+                            <Image Source="Resources/Upload_32x.png"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="2">
+                    <Button>
+                        <Button.Content>
+                            <Image Source="Resources/ListBox_24x.png"/>
+                        </Button.Content>
+                    </Button>
+                    <Button>
+                        <Button.Content>
+                            <Image Source="Resources/Image_32x.png"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <DockPanel>
+                    <Label DockPanel.Dock="Left">
+                        <Label.Content>
+                            <Image Source="Resources/Folder_16x.png"/>
+                        </Label.Content>
+                    </Label>
+                    <TextBox MinWidth="200"/>
+                </DockPanel>
+            </DockPanel>
+
+            <DockPanel Grid.Column="1" Margin="2">
+                <Label DockPanel.Dock="Right">
+                    <Label.Content>
+                        <Image Source="Resources/Search_16x.png"/>
+                    </Label.Content>
+                </Label>
+                <TextBox/>
+            </DockPanel>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom">
+            <Label Content="hogehoge"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"/>
+            <GridSplitter Grid.Column="1"
+                          Width="3"
+                          ResizeDirection="Columns"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <Button Grid.Column="2"/>
+        </Grid>
+    </DockPanel>
+    
 </Window>

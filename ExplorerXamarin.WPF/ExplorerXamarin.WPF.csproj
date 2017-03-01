@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -83,7 +84,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -100,6 +101,36 @@
       <Project>{12743510-96ae-41fb-bea8-89746482e58a}</Project>
       <Name>ExplorerXamarin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ListBox_24x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ListDefinition_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Search_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Upload_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Backward_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\FileSystemEditor_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Folder_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Folder_64x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Forward_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Image_32x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
