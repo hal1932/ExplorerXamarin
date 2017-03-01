@@ -1,0 +1,10 @@
+﻿<Properties StartupItem="ExplorerXamarin.Cocoa/ExplorerXamarin.Cocoa.csproj">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <DisabledProjects>
+    <String>ExplorerXamarin.WPF/ExplorerXamarin.WPF.csproj</String>
+  </DisabledProjects>
+</Properties>
