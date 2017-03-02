@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.Resources>
@@ -35,17 +39,17 @@
 
             <DockPanel Grid.Column="0" Margin="2">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <Button Padding="1">
+                    <Button Command="{Binding GoBackwardCommand}">
                         <Button.Content>
                             <Image Source="Resources/Backward_32x.png"/>
                         </Button.Content>
                     </Button>
-                    <Button>
+                    <Button Command="{Binding GoForwardCommand}">
                         <Button.Content>
                             <Image Source="Resources/Forward_32x.png"/>
                         </Button.Content>
                     </Button>
-                    <Button>
+                    <Button Command="{Binding GoUpCommand}">
                         <Button.Content>
                             <Image Source="Resources/Upload_32x.png"/>
                         </Button.Content>
@@ -53,12 +57,12 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="2">
-                    <Button>
+                    <Button Command="{Binding SwitchViewCommand}" CommandParameter="list">
                         <Button.Content>
                             <Image Source="Resources/ListBox_24x.png"/>
                         </Button.Content>
                     </Button>
-                    <Button>
+                    <Button Command="{Binding SwitchViewCommand}" CommandParameter="thumbnail">
                         <Button.Content>
                             <Image Source="Resources/Image_32x.png"/>
                         </Button.Content>
@@ -71,7 +75,7 @@
                             <Image Source="Resources/Folder_16x.png"/>
                         </Label.Content>
                     </Label>
-                    <TextBox MinWidth="200"/>
+                    <TextBox MinWidth="200" Text="{Binding DirectoryPath, Mode=TwoWay}"/>
                 </DockPanel>
             </DockPanel>
 
@@ -81,7 +85,7 @@
                         <Image Source="Resources/Search_16x.png"/>
                     </Label.Content>
                 </Label>
-                <TextBox/>
+                <TextBox Text="{Binding SearchFilter, Mode=OneWay}"/>
             </DockPanel>
         </Grid>
 

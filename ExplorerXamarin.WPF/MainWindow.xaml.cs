@@ -23,7 +23,6 @@ namespace ExplorerXamarin.WPF
         public MainWindow()
         {
             InitializeComponent();
-            Title = MyClass.Test();
         }
     }
 }
