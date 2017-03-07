@@ -1,7 +1,9 @@
 ﻿using Microsoft.Practices.Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +56,7 @@ namespace ExplorerXamarin.WPF
             {
                 if (SetProperty(ref _DirectoryPath, value))
                 {
+                    _history.SetNext(new DirectoryInfo(value));
                     UpdateDirectoryPath(value);
                 }
             }
@@ -75,42 +78,87 @@ namespace ExplorerXamarin.WPF
         }
         #endregion
 
+        #region RootDirectoryNodes
+        private DirectoryNode[] _RootDirectoryNodes;
+        public DirectoryNode[] RootDirectoryNodes
+        {
+            get { return _RootDirectoryNodes; }
+            set { SetProperty(ref _RootDirectoryNodes, value); }
+        }
+        #endregion
+
+        #region FileViewType
+        private string _FileViewType;
+        public string FileViewType
+        {
+            get { return _FileViewType; }
+            set { SetProperty(ref _FileViewType, value); }
+        }
+        #endregion
+
+        #region FileViewModel
+        private FileViewModel _FileViewModel;
+        public FileViewModel FileViewModel
+        {
+            get { return _FileViewModel; }
+            set { SetProperty(ref _FileViewModel, value); }
+        }
+        #endregion
+
+
+        public MainWindowViewModel()
+        {
+            RootDirectoryNodes = DriveInfo.GetDrives()
+                .Where(x => x.IsReady)
+                .Select(x => new DirectoryNode(x.Name, node =>
+                {
+                    _history.SetNext(new DirectoryInfo(node.FullName));
+                    UpdateDirectoryPath(node.FullName, true);
+                }))
+                .ToArray();
+
+            FileViewModel = new FileViewModel();
+            FileViewModel.DirectoryChanged += (s, e) => DirectoryPath = e;
+
+            SwitchView("list");
+        }
+
         private void GoBackward()
         {
-            Console.WriteLine("back");
-            UpdateHistoryTransitionStatus();
+            var next = _history.GoBack();
+            UpdateDirectoryPath(next.FullName, true);
         }
 
         private bool EnableGoBackward()
         {
-            return true;
+            return _history.EnableGoingBack;
         }
 
         private void GoForward()
         {
-            Console.WriteLine("forward");
-            UpdateHistoryTransitionStatus();
+            var next = _history.GoForward();
+            UpdateDirectoryPath(next.FullName, true);
         }
 
         private bool EnableGoForward()
         {
-            return true;
+            return _history.EnableGoingForward;
         }
 
         private void GoUp()
         {
-            Console.WriteLine("up");
-            UpdateHistoryTransitionStatus();
+            var next = _history.GoUp();
+            UpdateDirectoryPath(next.FullName, true);
         }
 
         private bool EnableGoUp()
         {
-            return true;
+            return _history.EnableGoingUp;
         }
 
         private void SwitchView(string view)
         {
-            Console.WriteLine(view);
+            FileViewType = view;
         }
 
         private void UpdateHistoryTransitionStatus()
@@ -120,13 +168,23 @@ namespace ExplorerXamarin.WPF
             GoUpCommand.RaiseCanExecuteChanged();
         }
 
-        private void UpdateDirectoryPath(string path)
+        private void UpdateDirectoryPath(string path, bool updateProperty = false)
         {
+            FileViewModel.ChangeDirectory(path);
             UpdateHistoryTransitionStatus();
+
+            if (updateProperty)
+            {
+                _DirectoryPath = path;
+                OnPropertyChanged(nameof(DirectoryPath));
+            }
         }
 
         private void UpdateFilter(string filter)
         {
+            FileViewModel.ApplyFilter(filter);
         }
+
+        private DirectoryHistory _history = new DirectoryHistory();
     }
 }

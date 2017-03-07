@@ -85,7 +85,7 @@
                         <Image Source="Resources/Search_16x.png"/>
                     </Label.Content>
                 </Label>
-                <TextBox Text="{Binding SearchFilter, Mode=OneWay}"/>
+                <TextBox Text="{Binding SearchFilter, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
             </DockPanel>
         </Grid>
 
@@ -100,12 +100,48 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0"/>
+            <TreeView Grid.Column="0" ItemsSource="{Binding RootDirectoryNodes}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+            
             <GridSplitter Grid.Column="1"
                           Width="3"
                           ResizeDirection="Columns"
                           VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-            <Button Grid.Column="2"/>
+
+            <ContentControl Grid.Column="2" Content="{Binding FileViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate x:Key="listView">
+                        <local:FileListControl/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="thumbnailView">
+                        <local:FileThumbnailControl/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+                
+                <ContentControl.Style>
+                    <Style TargetType="{x:Type ContentControl}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FileViewType}" Value="list">
+                                <Setter Property="ContentTemplate" Value="{StaticResource listView}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding FileViewType}" Value="thumbnail">
+                                <Setter Property="ContentTemplate" Value="{StaticResource thumbnailView}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
         </Grid>
     </DockPanel>
     

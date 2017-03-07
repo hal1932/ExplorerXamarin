@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace ExplorerXamarin.WPF
 {
@@ -24,6 +25,12 @@ namespace ExplorerXamarin.WPF
 #if DEBUG
             AttachConsole(ATTACH_PARENT_PROCESS);
 #endif
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Dispatcher.CurrentDispatcher.BeginInvokeShutdown(DispatcherPriority.Send);
+            Dispatcher.Run();
         }
     }
 }

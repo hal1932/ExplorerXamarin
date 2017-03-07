@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ExplorerXamarin.WPF.FileListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ExplorerXamarin.WPF"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <local:DebugBreakConverter x:Key="breakConv"/>
+    </UserControl.Resources>
+
+    <ListView ItemsSource="{Binding FileItems}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ContentControl>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="Open"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="1">
+                        <Image Source="{Binding IconSource}" Width="18"/>
+                        <TextBlock Text="{Binding Info.Name}"/>
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    
+</UserControl>
